@@ -1,0 +1,19 @@
+
+svg#clouds {
+  position: fixed;
+  top: -160px;
+  left: -230px;
+  z-index: -10;
+  width: 1920px;
+  transform: rotateY('180');
+  animation: anim-clouds 10s linear infinite;
+}
+
+@keyframes anim-clouds {
+  from {
+      transform: translateX(0px);
+  }
+  to {
+      transform: translateX(100%);
+  }
+}
