@@ -1,2 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+  background-color: #666 !important;
+  font-family: 'Roboto', sans-serif !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
