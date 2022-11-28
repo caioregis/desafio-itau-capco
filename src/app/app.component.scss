@@ -1,19 +1,48 @@
 
-svg#clouds {
+svg.clouds {
   position: fixed;
-  top: -160px;
-  left: -230px;
+  top: 0;
+  left: 0;
   z-index: -10;
-  width: 1920px;
+  width: 820px;
   transform: rotateY('180');
-  animation: anim-clouds 10s linear infinite;
+
+  &.x1 {
+    transform: scale(0.7);
+    animation: anim-clouds 25s linear infinite;
+  }
+  &.x2 {
+    top: -40px;
+    left: 70%;
+    transform: scale(0.5);
+    animation: anim-clouds 20s linear infinite;
+  }
+  &.x3 {
+    top: -100px;
+    left: 40%;
+    transform: scale(1.5);
+    animation: anim-clouds 15s linear infinite;
+  }
+  &.x4 {
+    top: 200px;
+    left: -50%;
+    transform: scale(0.8);
+    animation: anim-clouds 30s linear infinite;
+  }
+  &.x5 {
+    top: 450px;
+    left: -80%;
+    transform: scale(0.6);
+    animation: anim-clouds 25s linear infinite;
+  }
+
 }
 
 @keyframes anim-clouds {
   from {
-      transform: translateX(0px);
+      left: -100%;
   }
   to {
-      transform: translateX(100%);
+      left: 100%;
   }
 }
