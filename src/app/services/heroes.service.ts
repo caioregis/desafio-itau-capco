@@ -27,22 +27,26 @@ export class HeroesService {
   }
 
   setHero(hero: Hero) {
-    this.heroSelected$.next(this.mapperHeroSelected(hero));
+    if (hero)
+      this.heroSelected$.next(this.mapperHeroSelected(hero));
   }
 
   private mapperHeroSelected(hero: Hero) {
     return {
-      ...hero,
-      img: hero.images.md,
+      name: hero?.name || '',
+      slug: hero.slug || '',
+      ...(hero.appearance ? { appearance: hero.appearance } : {}),
+      ...(hero.biography ? { biography: hero.biography } : {}),
+      img: hero.images?.md ?? '',
       powerstats: [
         {
-          name: hero.name,
+          name: hero.name ?? '',
           series: this.mapperSeries(hero.powerstats)
         }
       ],
-      works: this.splitString(hero.work.occupation),
-      groupsAffiliation: this.splitString(hero.connections.groupAffiliation),
-      relatives: this.splitString(hero.connections.relatives)
+      works: this.splitString(hero.work?.occupation),
+      groupsAffiliation: this.splitString(hero.connections?.groupAffiliation),
+      relatives: this.splitString(hero.connections?.relatives)
     };
   }
 
@@ -51,14 +55,17 @@ export class HeroesService {
   }
 
   private mapperSeries(powerstats: Powerstats) {
-    return [
-      this.mapperSerie('Combat', powerstats.combat),
-      this.mapperSerie('Durability', powerstats.durability),
-      this.mapperSerie('Intelligence', powerstats.intelligence),
-      this.mapperSerie('Power', powerstats.power),
-      this.mapperSerie('Speed', powerstats.speed),
-      this.mapperSerie('Strength', powerstats.strength),
-    ]
+    if (powerstats) {
+      return [
+        this.mapperSerie('Combat', powerstats.combat),
+        this.mapperSerie('Durability', powerstats.durability),
+        this.mapperSerie('Intelligence', powerstats.intelligence),
+        this.mapperSerie('Power', powerstats.power),
+        this.mapperSerie('Speed', powerstats.speed),
+        this.mapperSerie('Strength', powerstats.strength),
+      ];
+    }
+    return [];
   }
 
   private mapperSerie(name: string, powerstats: number) {

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { heroesServiceStub } from 'src/tests/stubs/heroes-service-stub';
 
 import { HeroListComponent } from './hero-list.component';
 
@@ -8,7 +9,8 @@ describe('HeroListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HeroListComponent ]
+      declarations: [ HeroListComponent ],
+      providers: [heroesServiceStub]
     })
     .compileComponents();
 
