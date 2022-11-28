@@ -1,0 +1,11 @@
+
+.accordion-button {
+  outline: 0;
+
+  &:focus, :not(.collapsed) {
+    color: black;
+    border: 0;
+    background-color: white;
+    box-shadow: none;
+  }
+}

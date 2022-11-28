@@ -1,0 +1,64 @@
+<ng-container *ngIf="heroSelected$ | async as hero">
+  <div class="card mb-4">
+    <div class="card-header">
+      <h3>{{hero.name}}</h3><span class="text-muted">({{hero.biography.aliases}})</span>
+    </div>
+    <div class="card-body">
+      <div class="hero-info row justify-content-between">
+        <img class="col-12 col-sm-2 rounded" [src]="hero.img" [alt]="'Image of ' + hero.name"/>
+        <div class="col-12 col-sm-3 hero-info__biography mt-4 mt-sm-0">
+          <h5 class="text-dark ms-3">Biography</h5>
+          <ul class="list-group list-group-flush rounded">
+            <li class="list-group-item"><span class="fw-bold me-3">Full Name</span> {{hero.biography.fullName}}</li>
+            <li class="list-group-item"><span class="fw-bold me-3">Alter Egos</span> {{hero.biography.alterEgos}}</li>
+            <li class="list-group-item"><span class="fw-bold me-3">Aliases</span> {{hero.biography.aliases}}</li>
+            <li class="list-group-item"><span class="fw-bold me-3">Place Of Birth</span> {{hero.biography.placeOfBirth}}</li>
+            <li class="list-group-item"><span class="fw-bold me-3">First Appearance</span> {{hero.biography.firstAppearance}}</li>
+            <li class="list-group-item"><span class="fw-bold me-3">Publisher</span> {{hero.biography.publisher}}</li>
+            <li class="list-group-item"><span class="fw-bold me-3">Alignment</span> {{hero.biography.alignment}}</li>
+          </ul>
+        </div>
+        <div class="col-12 col-sm-4 chart mt-4 mt-sm-0">
+          <ngx-charts-polar-chart
+            [xAxis]="true"
+            [results]="hero.powerstats">
+          </ngx-charts-polar-chart>
+        </div>
+        <div class="col-12 col-sm-3 hero-info__appearance mt-4 mt-sm-0">
+          <h5 class="text-ligth ms-3">Appearance</h5>
+          <ul class="list-group list-group-flush rounded">
+            <li class="list-group-item"><span class="fw-bold me-3">Gender</span> {{hero.appearance.gender}}</li>
+            <li class="list-group-item"><span class="fw-bold me-3">Race</span> {{hero.appearance.race}}</li>
+            <li class="list-group-item"><span class="fw-bold me-3">Height</span> {{hero.appearance.height[1]}}</li>
+            <li class="list-group-item"><span class="fw-bold me-3">Weight</span> {{hero.appearance.weight[1]}}</li>
+            <li class="list-group-item"><span class="fw-bold me-3">Eye Color</span> {{hero.appearance.eyeColor}}</li>
+            <li class="list-group-item"><span class="fw-bold me-3">Hair Color</span> {{hero.appearance.hairColor}}</li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="descritpion mt-4">
+        <div class="accordion accordion-bg-light" id="accordionHero">
+          <ng-container *ngTemplateOutlet="accordionItem; context: { id: 'works', label: 'Work', list: hero.works }"></ng-container>
+          <ng-container *ngTemplateOutlet="accordionItem; context: { id: 'groupsAffiliation', label: 'Group Affiliation', list: hero.groupsAffiliation }"></ng-container>
+          <ng-container *ngTemplateOutlet="accordionItem; context: { id: 'relatives', label: 'Relatives', list: hero.relatives }"></ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #accordionItem let-id="id" let-label="label" let-list="list">
+  <div class="accordion-item">
+    <h2 class="accordion-header" [id]="id">
+      <button class="accordion-button btn-secondary bg-light collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse'+id" aria-expanded="true" [attr.aria-controls]="id">
+        {{label}}
+      </button>
+    </h2>
+    <div [id]="'collapse'+id" class="accordion-collapse collapse" [attr.aria-labelledby]="id" data-bs-parent="#accordionHero">
+      <div class="accordion-body">
+        <span *ngFor="let item of list" class="badge rounded-pill text-bg-dark mx-1">{{ item }}</span>
+      </div>
+    </div>
+  </div>
+</ng-template>
